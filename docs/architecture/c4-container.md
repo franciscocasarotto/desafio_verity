@@ -1,7 +1,3 @@
-
-### `docs/architecture/c4-container.md`
-
-```markdown
 # C4 — Container Diagram
 
 ```mermaid
