@@ -19,6 +19,9 @@ Adotar arquitetura hexagonal em ambos os serviços.
 
 ## Consequências
 ✅ Testes unitários do domínio sem mock de banco
+
 ✅ PostgreSQL pode ser trocado por SQLite em testes
+
 ✅ Adapters de eventos isolados (troca Redis → Kafka sem tocar domínio)
+
 ⚠️ Exige disciplina para não vazar dependências ao domínio
