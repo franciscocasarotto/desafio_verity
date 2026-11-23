@@ -41,6 +41,7 @@
 
 Cada serviço segue a estrutura:
 src/
+
 ├── domain/ # Entidades + regras puras (sem dependências externas)
 ├── application/ # Casos de uso + ports (interfaces)
 ├── infrastructure/ # Adapters (DB, Redis, HTTP, eventos)
