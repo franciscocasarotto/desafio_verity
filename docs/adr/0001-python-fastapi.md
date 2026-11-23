@@ -1,11 +1,4 @@
 
----
-
-## 📄 4. Justificativa de Tecnologias (ADRs)
-
-### `docs/adr/0001-python-fastapi.md`
-
-```markdown
 # ADR-0001: Python 3.11 + FastAPI
 
 ## Status: Aceito
