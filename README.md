@@ -4,12 +4,16 @@
 
 Este repositório contém a solução arquitetural completa para um sistema de controle de fluxo de caixa, desenvolvido como parte do processo seletivo para a posição de Solutions Architect.
 
-A solução foi desenhada considerando um **ambiente corporativo híbrido e multi-cloud** (On-Premises, Azure e GCP), priorizando:
-- Soberania de dados e conformidade
-- Escalabilidade elástica para picos de carga
-- Otimização de custos (FINOPS)
-- Resiliência e alta disponibilidade
-- Segurança em múltiplas camadas (Defense in Depth)
+Sistema de controle de fluxo de caixa para comerciantes, com dois serviços:
+- **Lançamentos**: registra débitos e créditos
+- **Consolidado**: calcula o saldo diário
+
+## Como rodar local
+
+Com Docker instalado:
+
+```bash
+docker-compose up --build
 
 ##  Arquitetura
 
