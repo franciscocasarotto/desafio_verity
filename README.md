@@ -15,21 +15,30 @@ A solução foi desenhada considerando um **ambiente corporativo híbrido e mult
 
 ### Diagrama de Contexto (C4 - Level 1)
 
-```mermaid
-graph TB
-    User[Comerciante] -->|HTTPS| APIGW[API Gateway]
-    APIGW --> SVC1[Serviço de Lançamentos]
-    APIGW --> SVC2[Serviço de Consolidado]
-    
-    SVC1 --> DB1[(PostgreSQL<br/>On-Premises)]
-    SVC2 --> DB2[(PostgreSQL<br/>Azure)]
-    SVC2 --> CACHE[(Redis Cache<br/>Azure)]
-    
-    SVC1 -.->|Publica Eventos| MQ[RabbitMQ<br/>Azure]
-    MQ -.->|Consome Eventos| SVC2
-    
-    SVC2 -.->|DR / Analytics| GCP[GCP<br/>BigQuery]
-    
-    style DB1 fill:#ff9999
-    style DB2 fill:#99ccff
-    style GCP fill:#ffcc99
+             ┌─────────────────┐
+             │   Comerciante   │
+             └────────┬────────┘
+                      │ HTTP
+                      ▼
+        ┌─────────────────────────┐
+        │      API Gateway        │
+        │   (auth, rate limit)    │
+        └──────┬──────────┬───────┘
+               │          │
+      ┌────────▼──┐   ┌──▼────────────┐
+      │Lançamentos│   │  Consolidado  │
+      │  (On-prem)│   │   (Azure)     │
+      └─────┬─────┘   └──────▲────────┘
+            │                │
+            │  publica       │ consome
+            ▼                │
+      ┌──────────────────────┴─────┐
+      │        RabbitMQ            │
+      │     (fila durável)         │
+      └────────────────────────────┘
+            │                │
+            ▼                ▼
+      ┌──────────┐    ┌──────────┐
+      │PostgreSQL│    │ Postgres │
+      │ On-prem  │    │ + Redis  │
+      └──────────┘    └──────────┘
