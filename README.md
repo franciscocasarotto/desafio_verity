@@ -2,29 +2,29 @@
 
 > Controle de fluxo de caixa diário com consolidação de saldo para comerciantes.
 
-## 🎯 Entrega de Valor
+##  Entrega de Valor
 O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financeiros 
 e **saldo consolidado diário** com latência <150ms, permitindo decisões rápidas 
 sobre liquidez.
 
-## 🏗️ Arquitetura
+##  Arquitetura
 - **Padrão**: Hexagonal (Ports & Adapters) com 2 serviços desacoplados
 - **Comunicação**: Event-driven via Redis Streams (at-least-once)
 - **Persistência**: PostgreSQL (ACID) + Redis (cache TTL 5min)
 - **Segurança**: JWT, rede interna isolada, rate limiting
 
-## 🌟 Requisitos Diferenciais (Arquitetura Sênior)
+##  Requisitos Diferenciais (Arquitetura Sênior)
 
 Além da implementação funcional, este repositório entrega artefatos de nível corporativo para garantir a viabilidade, segurança e operação da solução em produção:
 
-- 🔄 [Arquitetura de Transição (Migração de Legado)](docs/diferenciais/arquitetura-transicao.md) - Estratégia Strangler Fig e mitigação de riscos.
-- 💰 [Estimativa de Custos e FinOps](docs/diferenciais/estimativa-custos.md) - Comparativo Cloud vs. On-Premise/Híbrido.
-- 📊 [Monitoramento e Observabilidade](docs/diferenciais/monitoramento-observabilidade.md) - Os 3 pilares e integração com ITSM/ServiceNow.
-- 🔐 [Segurança para Integração de Serviços](docs/diferenciais/seguranca-integracao.md) - Zero Trust, OAuth2, DevSecOps e OWASP.
+-  [Arquitetura de Transição (Migração de Legado)](docs/diferenciais/arquitetura-transicao.md) - Estratégia Strangler Fig e mitigação de riscos.
+-  [Estimativa de Custos e FinOps](docs/diferenciais/estimativa-custos.md) - Comparativo Cloud vs. On-Premise/Híbrido.
+-  [Monitoramento e Observabilidade](docs/diferenciais/monitoramento-observabilidade.md) - Os 3 pilares e integração com ITSM/ServiceNow.
+-  [Segurança para Integração de Serviços](docs/diferenciais/seguranca-integracao.md) - Zero Trust, OAuth2, DevSecOps e OWASP.
 
-📎 Detalhes em [`docs/architecture/arquitetura-alvo.md`](docs/architecture/arquitetura-alvo.md)
+ Detalhes em [`docs/architecture/arquitetura-alvo.md`](docs/architecture/arquitetura-alvo.md)
 
-## 🚀 Como Executar Localmente
+##  Como Executar Localmente
 
 ### Pré-requisitos
 - Docker + Docker Compose
