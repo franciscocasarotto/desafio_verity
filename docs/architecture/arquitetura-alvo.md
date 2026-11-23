@@ -53,10 +53,13 @@ src/
 
 ## Justificativa da Escolha
 - **Por que não monolito?**
-  Dois serviços com responsabilidades distintas e cadências diferentes (escrita vs. agregação). Monolito acoplaria deploy e escalabilidade.
+
+   Dois serviços com responsabilidades distintas e cadências diferentes (escrita vs. agregação). Monolito acoplaria deploy e escalabilidade.
 - **Por que não microsserviços puros?**
-  Over-engineering para o escopo. Dois serviços é o mínimo viável que atende o requisito.
+
+   Over-engineering para o escopo. Dois serviços é o mínimo viável que atende o requisito.
 - **Por que Hexagonal?**
+
   Permite testar domínio sem banco, trocar PostgreSQL por outro sem tocar regras de negócio, e isolar a fonte de dados do caso de uso.
 
 ## Fluxo Principal (Happy Path)
