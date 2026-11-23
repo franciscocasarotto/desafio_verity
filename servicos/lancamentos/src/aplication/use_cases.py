@@ -5,7 +5,7 @@ from decimal import Decimal
 from uuid import UUID
 
 from src.domain.models import Lancamento, TipoLancamento
-from src.application.ports import LancamentoRepository, EventPublisher
+from src.aplication.ports import LancamentoRepository, EventPublisher
 
 
 @dataclass
