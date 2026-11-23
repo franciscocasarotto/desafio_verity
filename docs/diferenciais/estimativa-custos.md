@@ -15,7 +15,7 @@
 | **Storage** | Blob Storage (Backups e logs) | $ 5,00 |
 | **Total Cloud** | | **~ $ 166,00 / mês** |
 
-## Estimativa On-Premise / Híbrido (Azure Stack HCI)
+## Estimativa On-Premise 
 - **Compute/Storage:** Custo marginal zero (aproveitamento de hardware existente).
 - **Licenças:** Windows Server / SQL Server (se aplicável) já amortizados.
 - **Custo Operacional:** Energia, refrigeração e 0.2 FTE de SRE/DevOps para manutenção.
