@@ -11,3 +11,14 @@ venv/
 *.swo
 *.log
 *.tmp
+
+# Adiciona esses:
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+Thumbs.db
+*.tfstate
+*.tfstate.*
+.terraform/
