@@ -1,48 +1,28 @@
-# Desafio Técnico - Solutions Architect
+# Desafio Verity — Arquitetura de Soluções
 
-## Visão Geral
+> Controle de fluxo de caixa diário com consolidação de saldo para comerciantes.
 
-Este repositório contém a solução arquitetural completa para um sistema de controle de fluxo de caixa, desenvolvido como parte do processo seletivo para a posição de Solutions Architect.
+## 🎯 Entrega de Valor
+O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financeiros 
+e **saldo consolidado diário** com latência <150ms, permitindo decisões rápidas 
+sobre liquidez.
 
-Sistema de controle de fluxo de caixa para comerciantes, com dois serviços:
-- **Lançamentos**: registra débitos e créditos
-- **Consolidado**: calcula o saldo diário
+## 🏗️ Arquitetura
+- **Padrão**: Hexagonal (Ports & Adapters) com 2 serviços desacoplados
+- **Comunicação**: Event-driven via Redis Streams (at-least-once)
+- **Persistência**: PostgreSQL (ACID) + Redis (cache TTL 5min)
+- **Segurança**: JWT, rede interna isolada, rate limiting
 
-## Como rodar local
+📎 Detalhes em [`docs/architecture/arquitetura-alvo.md`](docs/architecture/arquitetura-alvo.md)
 
-Com Docker instalado:
+## 🚀 Como Executar Localmente
 
+### Pré-requisitos
+- Docker + Docker Compose
+- Python 3.11+ (para desenvolvimento/testes)
+
+### 1. Clonar e configurar
 ```bash
-docker-compose up --build
-
-##  Arquitetura
-
-### Diagrama de Contexto (C4 - Level 1)
-
-             ┌─────────────────┐
-             │   Comerciante   │
-             └────────┬────────┘
-                      │ HTTP
-                      ▼
-        ┌─────────────────────────┐
-        │      API Gateway        │
-        │   (auth, rate limit)    │
-        └──────┬──────────┬───────┘
-               │          │
-      ┌────────▼──┐   ┌──▼────────────┐
-      │Lançamentos│   │  Consolidado  │
-      │  (On-prem)│   │   (Azure)     │
-      └─────┬─────┘   └──────▲────────┘
-            │                │
-            │  publica       │ consome
-            ▼                │
-      ┌──────────────────────┴─────┐
-      │        RabbitMQ            │
-      │     (fila durável)         │
-      └────────────────────────────┘
-            │                │
-            ▼                ▼
-      ┌──────────┐    ┌──────────┐
-      │PostgreSQL│    │ Postgres │
-      │ On-prem  │    │ + Redis  │
-      └──────────┘    └──────────┘
+git clone https://github.com/franciscocasarotto/desafio_verity.git
+cd desafio_verity
+cp .env.example .env

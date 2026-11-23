@@ -1,32 +1,94 @@
-version: '3.8'
+version: '3.9'
+
+x-common-env: &common-env
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
 
 services:
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+  # ==================== INFRA ====================
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:-verity}
+      POSTGRES_PASSWORD: ${DB_PASS:-verity_secret}
+      POSTGRES_DB: verity_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks: [backend]
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-verity}"]
       interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits: { cpus: '1.0', memory: 1G }
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redisdata:/data
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
       retries: 5
 
+  # ==================== SERVIÇOS ====================
   lancamentos:
     build: ./servicos/lancamentos
-    ports:
-      - "8001:8000"
     environment:
-      - RABBITMQ_HOST=rabbitmq
+      <<: *common-env
+      DATABASE_URL: postgresql+asyncpg://${DB_USER:-verity}:${DB_PASS:-verity_secret}@postgres:5432/verity_db
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: ${JWT_SECRET:-dev_only_change_me}
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    ports: ["8001:8000"]
+    networks: [frontend, backend]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/lancamentos/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 2
+      resources: { limits: { cpus: '0.5', memory: 512M } }
+      restart_policy: { condition: on-failure, max_attempts: 5 }
 
   consolidado:
     build: ./servicos/consolidado
-    ports:
-      - "8002:8000"
     environment:
-      - RABBITMQ_HOST=rabbitmq
+      <<: *common-env
+      DATABASE_URL: postgresql+asyncpg://${DB_USER:-verity}:${DB_PASS:-verity_secret}@postgres:5432/verity_db
+      REDIS_URL: redis://redis:6379/0
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      lancamentos: { condition: service_healthy }
+    ports: ["8002:8000"]
+    networks: [frontend, backend]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/consolidado/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 2
+      resources: { limits: { cpus: '0.5', memory: 512M } }
+      restart_policy: { condition: on-failure, max_attempts: 5 }
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true   # 🔒 Banco e Redis NÃO acessíveis de fora
+
+volumes:
+  pgdata:
+  redisdata:
