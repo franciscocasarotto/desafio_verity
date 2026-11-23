@@ -19,5 +19,7 @@ Redis Streams com consumer groups (at-least-once delivery).
 
 ## Consequências
 ✅ Desacoplamento temporal (SL não depende de SC estar online)
+
 ✅ Replays possíveis (offset por consumer group)
+
 ⚠️ Exige idempotência no SC (chave: `lancamento_id + operation`)
