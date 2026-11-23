@@ -1,6 +1,6 @@
 # Desafio Técnico - Solutions Architect
 
-## 📋 Visão Geral
+## Visão Geral
 
 Este repositório contém a solução arquitetural completa para um sistema de controle de fluxo de caixa, desenvolvido como parte do processo seletivo para a posição de Solutions Architect.
 
@@ -11,7 +11,7 @@ A solução foi desenhada considerando um **ambiente corporativo híbrido e mult
 - Resiliência e alta disponibilidade
 - Segurança em múltiplas camadas (Defense in Depth)
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 ### Diagrama de Contexto (C4 - Level 1)
 
