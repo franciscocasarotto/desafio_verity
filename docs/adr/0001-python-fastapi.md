@@ -21,6 +21,9 @@ Adotar Python 3.11 com FastAPI.
 
 ## Consequências
 ✅ Tipagem forte no domínio via Pydantic
+
 ✅ Documentação Swagger automática
+
 ✅ Async I/O nativo para alta concorrência
+
 ⚠️ GIL do Python limita CPU-bound (mitigado com workers)
