@@ -13,6 +13,15 @@ sobre liquidez.
 - **Persistência**: PostgreSQL (ACID) + Redis (cache TTL 5min)
 - **Segurança**: JWT, rede interna isolada, rate limiting
 
+## 🌟 Requisitos Diferenciais (Arquitetura Sênior)
+
+Além da implementação funcional, este repositório entrega artefatos de nível corporativo para garantir a viabilidade, segurança e operação da solução em produção:
+
+- 🔄 [Arquitetura de Transição (Migração de Legado)](docs/diferenciais/arquitetura-transicao.md) - Estratégia Strangler Fig e mitigação de riscos.
+- 💰 [Estimativa de Custos e FinOps](docs/diferenciais/estimativa-custos.md) - Comparativo Cloud vs. On-Premise/Híbrido.
+- 📊 [Monitoramento e Observabilidade](docs/diferenciais/monitoramento-observabilidade.md) - Os 3 pilares e integração com ITSM/ServiceNow.
+- 🔐 [Segurança para Integração de Serviços](docs/diferenciais/seguranca-integracao.md) - Zero Trust, OAuth2, DevSecOps e OWASP.
+
 📎 Detalhes em [`docs/architecture/arquitetura-alvo.md`](docs/architecture/arquitetura-alvo.md)
 
 ## 🚀 Como Executar Localmente
@@ -25,4 +34,5 @@ sobre liquidez.
 ```bash
 git clone https://github.com/franciscocasarotto/desafio_verity.git
 cd desafio_verity
+docker compose up --build -d
 cp .env.example .env
