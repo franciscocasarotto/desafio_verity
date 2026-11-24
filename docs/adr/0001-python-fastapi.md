@@ -1,4 +1,7 @@
 
+### `docs/adr/0001-python-fastapi.md`
+```markdown
+# ADR-0001: Python 3.11 + FastAPI
 ## Status: Aceito
 ## Contexto
 Stack precisa modelar domínio financeiro com rigor, alta produtividade de testes e familiaridade do time.
