@@ -1,6 +1,8 @@
 # Desafio Verity — Arquitetura de Soluções
 
 > Controle de fluxo de caixa diário com consolidação de saldo para comerciantes.
+>  Arquitetura híbrida: On-premises (VMware/Azure Stack HCI) + Multi-cloud (Azure + GCP).
+
 
 ##  Entrega de Valor
 O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financeiros 
@@ -8,12 +10,12 @@ e **saldo consolidado diário** com latência <150ms, permitindo decisões rápi
 sobre liquidez.
 
 ##  Arquitetura
-- **Padrão**: Hexagonal (Ports & Adapters) com 2 serviços desacoplados
-- **Comunicação**: Event-driven via Redis Streams (at-least-once)
-- **Persistência**: PostgreSQL (ACID) + Redis (cache TTL 5min)
-- **Segurança**: JWT, rede interna isolada, rate limiting
-
-- **Portabilidade Híbrida (Multi-Cloud/On-Prem):** A solução é agnóstica à infraestrutura, sendo executável via containers em ambientes on-premises (VMware, Azure Stack HCI) ou orquestrada em nuvem (Azure AKS, Google GKE), garantindo soberania de dados e elasticidade conforme a necessidade do negócio.
+- **Integração Assíncrona:** Redis Streams com consumer groups (at-least-once)
+- **Resiliência:** Healthchecks, restart automático, rede interna isolada
+- **Segurança:** JWT, princípio do menor privilégio, validação rigorosa (Pydantic)
+- **Portabilidade Híbrida:** Containers executáveis em VMware, Azure AKS ou GCP GKE
+- **FinOps:** Comparativo Azure vs. GCP em BRL (região Brasil)
+-  **Portabilidade Híbrida (Multi-Cloud/On-Prem):** A solução é agnóstica à infraestrutura, sendo executável via containers em ambientes on-premises (VMware, Azure Stack HCI) ou orquestrada em nuvem (Azure AKS, Google GKE), garantindo soberania de dados e elasticidade conforme a necessidade do negócio.
 
 ##  Requisitos Diferenciais 
 
@@ -37,4 +39,4 @@ Além da implementação funcional, este repositório entrega artefatos de níve
 git clone https://github.com/franciscocasarotto/desafio_verity.git
 cd desafio_verity
 docker compose up --build -d
-cp .env.example .env
+
