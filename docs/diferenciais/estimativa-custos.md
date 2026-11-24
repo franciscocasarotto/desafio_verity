@@ -113,7 +113,7 @@ graph TB
     style G2 fill:#4285f4,color:#fff
 
     
----
+
 
 ## 5. Estimativa Azure (Brasil)
 
