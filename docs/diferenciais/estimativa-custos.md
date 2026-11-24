@@ -1,8 +1,14 @@
 # Estimativa de Custos e FinOps
 
-## Premissas
-- **Cenário:** Pequeno/Médio comerciante com pico de 100 transações/segundo.
-- **Modelo Híbrido:** A arquitetura suporta tanto Cloud (Azure/AWS) quanto On-Premise (via Azure Stack HCI / VMware, perfil da organização).
+## Premissas de Infraestrutura Híbrida
+- **Cenário:** Ambiente híbrido (On-premises + Multi-cloud).
+- **On-Premises (Azure Stack HCI / VMware):** Utilizado para persistência de dados (PostgreSQL) e processamento de regras de negócio críticas, aproveitando investimento já amortizado (Capex) e garantindo soberania de dados.
+- **Nuvem (Azure / GCP):** Utilizada para a camada de apresentação e APIs (Container Apps / AKS / GKE), permitindo escalabilidade horizontal sob demanda (Opex) em dias de pico de lançamentos.
+
+## Estratégia de Otimização de Custos (FinOps)
+1. **Bursting Controlado:** Manter 1 réplica dos serviços no on-premises e configurar HPA (Horizontal Pod Autoscaler) para escalar até 5 réplicas na nuvem (Azure/GCP) apenas durante o horário comercial.
+2. **Gerenciamento de Identidade Unificado:** Utilizar o Azure Entra ID (Active Directory) como provedor de identidade central, federado com o GCP, eliminando a necessidade de gerenciar múltiplos diretórios e reduzindo overhead operacional.
+3. **Cache Distribuído:** Utilizar instâncias do Redis gerenciadas (Azure Cache for Redis ou Memorystore no GCP) com políticas de evicção para evitar custos de armazenamento desnecessários.
 
 ## Estimativa Cloud (Azure - Região East US)
 | Recurso | Especificação | Custo Mensal Estimado (USD) |
