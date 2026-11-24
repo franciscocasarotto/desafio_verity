@@ -88,7 +88,7 @@ O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financ
 | 🏛️ Arquitetura Alvo + Diagramas C4 | [arquitetura-alvo.md](docs/architecture/arquitetura-alvo.md) |
 | ⚖️ Decisões Arquiteturais (ADRs) | [adr/](docs/adr/) |
 | 🔄 Arquitetura de Transição (Strangler Fig) | [arquitetura-transicao.md](docs/diferenciais/arquitetura-transicao.md) |
-| 💰 Estimativa de Custos FinOps | [estimativa-custos.md](docs/diferenciais/estimativa-custos.md) |
+| 💰 Estimativa de Custos e FinOps | [estimativa-custos-finops.md](docs/diferenciais/estimativa-custos-finops.md) |
 | 📊 Monitoramento e Observabilidade | [monitoramento-observabilidade.md](docs/diferenciais/monitoramento-observabilidade.md) |
 | 🔐 Segurança para Integração | [seguranca-integracao.md](docs/diferenciais/seguranca-integracao.md) |
 | 📊 Todos os Diagramas Consolidados | [diagramas.md](docs/diagramas.md) |
