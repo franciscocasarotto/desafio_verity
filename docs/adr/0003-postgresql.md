@@ -1,20 +1,14 @@
-# ADR-0003: PostgreSQL como banco relacional
+# ADR-0003: PostgreSQL + Redis
 
 ## Status: Aceito
-
-## Contexto
-Dados financeiros exigem ACID, transações e integridade referencial.
-
 ## Decisão
-PostgreSQL 15.
+PostgreSQL 15 para persistência transacional + Redis 7 para cache e mensageria.
 
 ## Justificativa
-- **ACID completo** — essencial para lançamentos financeiros
-- **JSONB** — permite armazenar metadados flexíveis (audit trail)
-- **Particionamento por data** — escala para anos de histórico
-- **Trigger/Listen-Notify** — base para eventos de consolidação
-- **Custo zero** — open source, alinhado a ambientes on-premise (perfil do arquiteto)
+- **PostgreSQL:** ACID completo (essencial para lançamentos financeiros), JSONB para audit trail, particionamento por data.
+- **Redis Streams:** at-least-once delivery, consumer groups, latência <1ms, custo operacional baixo.
 
 ## Alternativas rejeitadas
-- MongoDB: falta transações multi-document robustas
-- MySQL: menos recursos de JSONB e particionamento nativo
+- MongoDB: transações multi-document fracas
+- RabbitMQ: complexidade operacional maior para escopo pequeno
+- Kafka: overkill para 50 req/s
