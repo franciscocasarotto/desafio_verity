@@ -7,3 +7,4 @@ pytest-cov==4.1.0
 httpx==0.26.0         # Para testes de integração da API
 asyncpg==0.29.0       # Driver assíncrono do PostgreSQL
 sqlalchemy==2.0.25    # ORM
+httpx==0.26.0
