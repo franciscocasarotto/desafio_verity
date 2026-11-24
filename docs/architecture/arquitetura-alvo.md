@@ -50,6 +50,17 @@ src/
 
 └── presentation/ # Controllers (FastAPI routers)
 
+## Contexto de Infraestrutura Híbrida
+A arquitetura foi desenhada considerando um ambiente híbrido corporativo:
+- **On-Premises (VMware / Azure Stack HCI):**
+  Ideal para o banco de dados PostgreSQL e dados sensíveis que exigem baixa latência e conformidade rígida de soberania de dados (Data Residency).
+- **Nuvem Pública (Azure / GCP):**
+  Ideal para os serviços de API (Lançamentos e Consolidado) que exigem escalabilidade elástica (bursting) em dias de pico, utilizando AKS (Azure Kubernetes Service) ou GKE (Google Kubernetes Engine).
+- **Conectividade:**
+  Integração segura entre os ambientes via Azure ExpressRoute ou Google Cloud Interconnect, com DNS privado e resolução de nomes unificada.
+
+
+
 
 ## Justificativa da Escolha
 - **Por que não monolito?**
