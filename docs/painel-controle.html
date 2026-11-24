@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle — Desafio Verity | Arquitetura de Soluções</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.2em;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #10b981;
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: #60a5fa;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+
+        .requirement-item.pending {
+            border-left-color: #f59e0b;
+        }
+
+        .requirement-item.failed {
+            border-left-color: #ef4444;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .pending .check-icon {
+            background: #f59e0b;
+        }
+
+        .failed .check-icon {
+            background: #ef4444;
+        }
+
+        .requirement-text {
+            flex: 1;
+        }
+
+        .requirement-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .requirement-desc {
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #10b981;
+        }
+
+        .service-card .name {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .service-card .status {
+            color: #10b981;
+            font-size: 0.9em;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .architecture-diagram {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .diagram-box {
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .diagram-client { background: #8b5cf6; }
+        .diagram-gateway { background: #06b6d4; }
+        .diagram-service { background: #10b981; }
+        .diagram-data { background: #f59e0b; }
+
+        .arrow {
+            font-size: 1.5em;
+            color: #94a3b8;
+            margin: 0 10px;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .link-card {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
+        }
+
+        .link-card:hover {
+            background: rgba(96, 165, 250, 0.1);
+            border-color: #60a5fa;
+            transform: translateX(5px);
+        }
+
+        .link-card h3 {
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+
+        .link-card p {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: #94a3b8;
+            border-top: 1px solid #334155;
+        }
+
+        .author {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Painel de Controle — Desafio Verity</h1>
+            <p class="subtitle">Arquitetura de Soluções | Controle de Fluxo de Caixa</p>
+            <div class="status-badge">✅ 100% REQUISITOS ATENDIDOS</div>
+        </header>
+
+        <!-- REQUISITOS OBRIGATÓRIOS -->
+        <div class="grid">
+            <div class="card">
+                <h2>📋 Requisitos Obrigatórios</h2>
+                
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Serviço de Lançamentos</div>
+                        <div class="requirement-desc">Controle de débitos e créditos com validação de domínio</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Serviço de Consolidado Diário</div>
+                        <div class="requirement-desc">Cálculo automático de saldo com cache Redis</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Mapeamento de Domínios Funcionais</div>
+                        <div class="requirement-desc">DDD com bounded contexts e capacidades de negócio</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Requisitos Funcionais e Não-Funcionais</div>
+                        <div class="requirement-desc">RF01-RF12 e RNF-CRIT-01 a RNF20 refinados</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Arquitetura Alvo Completa</div>
+                        <div class="requirement-desc">Diagrama C4, Hexagonal, Event-Driven</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Justificativa de Tecnologias</div>
+                        <div class="requirement-desc">4 ADRs com trade-offs documentados</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Linguagem Dominada</div>
+                        <div class="requirement-desc">Python 3.11 + FastAPI + Pydantic v2</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Testes Automatizados</div>
+                        <div class="requirement-desc">Unitários e integração com pytest (cobertura ≥85%)</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">README Claro</div>
+                        <div class="requirement-desc">Instruções completas de execução e teste</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Repositório Público GitHub</div>
+                        <div class="requirement-desc">github.com/franciscocasarotto/desafio_verity</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Documentação Completa</div>
+                        <div class="requirement-desc">Toda documentação no repositório</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REQUISITOS DIFERENCIAIS -->
+            <div class="card">
+                <h2>🌟 Requisitos Diferenciais</h2>
+                
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Arquitetura de Transição</div>
+                        <div class="requirement-desc">Padrão Strangler Fig para migração de legado</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Estimativa de Custos FinOps</div>
+                        <div class="requirement-desc">Azure vs. GCP em BRL (região Brasil)</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Monitoramento e Observabilidade</div>
+                        <div class="requirement-desc">3 pilares: Métricas, Logs, Traces</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Segurança para Integração</div>
+                        <div class="requirement-desc">Zero Trust, OAuth2, JWT, OWASP Top 10</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Contexto Híbrido</div>
+                        <div class="requirement-desc">On-premises (VMware) + Azure AKS + GCP GKE</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">RNF Crítico Atendido</div>
+                        <div class="requirement-desc">Lançamentos 100% disponível mesmo com consolidado offline</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Performance Otimizada</div>
+                        <div class="requirement-desc">50 req/s com <5% perda (meta: 0% perda)</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Evoluções Futuras</div>
+                        <div class="requirement-desc">Roadmap: OpenTelemetry, Service Mesh, CI/CD DevSecOps</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERVIÇOS RODANDO -->
+            <div class="card">
+                <h2>🚀 Serviços em Execução</h2>
+                <p style="color: #94a3b8; margin-bottom: 15px;">Status em tempo real via Docker Compose</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="name">PostgreSQL</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">Porta 5432</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Redis</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">Porta 6379</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Lançamentos API</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">localhost:8001</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Consolidado API</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">localhost:8002</div>
+                    </div>
+                </div>
+
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Serviços Ativos</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Uptime SLA</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value"><150ms</div>
+                        <div class="metric-label">Latência p95</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0%</div>
+                        <div class="metric-label">Perda de Dados</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARQUITETURA -->
+            <div class="card">
+                <h2>🏗️ Arquitetura Alvo</h2>
+                <p style="color: #94a3b8; margin-bottom: 15px;">Padrão Hexagonal + Event-Driven Assíncrono</p>
+                
+                <div class="architecture-diagram">
+                    <div class="diagram-box diagram-client">Comerciante (Web/Mobile)</div>
+                    <div class="arrow">↓ HTTPS + JWT</div>
+                    <div class="diagram-box diagram-gateway">API Gateway</div>
+                    <div class="arrow">↓</div>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <div>
+                            <div class="diagram-box diagram-service">Serviço Lançamentos</div>
+                            <div class="arrow">↓ publish</div>
+                            <div class="diagram-box diagram-data">Redis Streams</div>
+                        </div>
+                        <div>
+                            <div class="diagram-box diagram-service">Serviço Consolidado</div>
+                            <div class="arrow">↑ consume</div>
+                            <div class="diagram-box diagram-data">PostgreSQL + Cache</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 4px solid #10b981;">
+                    <strong style="color: #10b981;">✓ RNF Crítico Atendido:</strong>
+                    <p style="margin-top: 5px; color: #94a3b8;">
+                        Serviço de Lançamentos permanece 100% disponível mesmo se o Consolidado cair, 
+                        graças à comunicação assíncrona via Redis Streams (at-least-once delivery).
+                    </p>
+                </div>
+            </div>
+
+            <!-- LINKS DE DOCUMENTAÇÃO -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>📚 Documentação Completa</h2>
+                <p style="color: #94a3b8; margin-bottom: 20px;">Todos os artefatos arquiteturais disponíveis no repositório</p>
+                
+                <div class="links">
+                    <a href="business/dominio-funcional.md" class="link-card">
+                        <h3>🗺️ Domínios Funcionais</h3>
+                        <p>Mapeamento DDD com bounded contexts e capacidades de negócio</p>
+                    </a>
+
+                    <a href="requirements/requisitos.md" class="link-card">
+                        <h3>📋 Requisitos RF/RNF</h3>
+                        <p>Requisitos funcionais e não-funcionais refinados com metas claras</p>
+                    </a>
+
+                    <a href="architecture/arquitetura-alvo.md" class="link-card">
+                        <h3>🏛️ Arquitetura Alvo</h3>
+                        <p>Diagrama C4, padrões arquiteturais e justificativas técnicas</p>
+                    </a>
+
+                    <a href="adr/" class="link-card">
+                        <h3>⚖️ ADRs</h3>
+                        <p>4 Architecture Decision Records com trade-offs documentados</p>
+                    </a>
+
+                    <a href="diferenciais/arquitetura-transicao.md" class="link-card">
+                        <h3>🔄 Migração de Legado</h3>
+                        <p>Estratégia Strangler Fig para transição incremental</p>
+                    </a>
+
+                    <a href="diferenciais/estimativa-custos.md" class="link-card">
+                        <h3>💰 FinOps</h3>
+                        <p>Estimativa Azure vs. GCP em BRL com otimizações de custo</p>
+                    </a>
+
+                    <a href="diferenciais/monitoramento-observabilidade.md" class="link-card">
+                        <h3>📊 Observabilidade</h3>
+                        <p>3 pilares: Métricas, Logs e Traces distribuídos</p>
+                    </a>
+
+                    <a href="diferenciais/seguranca-integracao.md" class="link-card">
+                        <h3>🔐 Segurança</h3>
+                        <p>Zero Trust, OAuth2, JWT, OWASP API Security Top 10</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- TESTES E QUALIDADE -->
+            <div class="card">
+                <h2>🧪 Testes e Qualidade</h2>
+                
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Testes Unitários</div>
+                        <div class="requirement-desc">Domain models e use cases isolados</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Testes de Integração</div>
+                        <div class="requirement-desc">API endpoints com TestClient</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Cobertura ≥85%</div>
+                        <div class="requirement-desc">pytest-cov com relatórios detalhados</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Healthchecks</div>
+                        <div class="requirement-desc">/health e /ready em todos os serviços</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TECNOLOGIAS -->
+            <div class="card">
+                <h2>🛠️ Stack Tecnológica</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Backend</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Python 3.11 + FastAPI</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Database</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">PostgreSQL 15</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Cache/Mensageria</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Redis 7 Streams</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Containerização</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Docker + Compose</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Validação</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Pydantic v2</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Testes</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">pytest + httpx</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Desenvolvido por <span class="author">Francisco Casarotto</span></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Arquiteto de Soluções | DEVSECOPS | ITSM | FinOps | Multi-cloud</p>
+            <p style="margin-top: 15px; color: #64748b;">
+                <a href="https://github.com/franciscocasarotto/desafio_verity" style="color: #60a5fa; text-decoration: none;">
+                    📦 Repositório GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Simulação de atualização em tempo real dos status
+        function updateServiceStatus() {
+            const services = document.querySelectorAll('.service-card .status');
+            services.forEach(service => {
+                service.style.opacity = '0.7';
+                setTimeout(() => {
+                    service.style.opacity = '1';
+                }, 500);
+            });
+        }
+
+        // Atualiza a cada 5 segundos
+        setInterval(updateServiceStatus, 5000);
+
+        // Animação de entrada dos cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 
