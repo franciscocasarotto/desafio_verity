@@ -1,25 +1,22 @@
-# ADR-0004: Integração orientada a eventos via Redis Streams
+# ADR-0004: Integração Assíncrona Event-Driven
 
 ## Status: Aceito
-
 ## Contexto
-Os serviços precisam se comunicar sem acoplamento síncrono. Se o serviço de 
-consolidado cair, os lançamentos não podem ser perdidos.
+RNF-CRIT-01: lançamentos NÃO pode ficar indisponível se consolidado cair.
 
 ## Decisão
-Redis Streams com consumer groups (at-least-once delivery).
+Comunicação via Redis Streams (at-least-once) com consumer groups.
 
 ## Justificativa
 | Critério | Redis Streams | RabbitMQ | Kafka |
 |----------|---------------|----------|-------|
 | Latência | <1ms | ~5ms | ~10ms |
-| Complexidade operacional | Baixa | Média | Alta |
-| Persistência de eventos | Sim | Sim | Sim |
-| Adequado ao escopo | ✅ | ✅ | ❌ overkill |
+| Complexidade | Baixa | Média | Alta |
+| Replay | Sim (offset) | Sim | Sim |
+| Adequado escopo | ✅ | ✅ | ❌ |
 
 ## Consequências
-✅ Desacoplamento temporal (SL não depende de SC estar online)
-
-✅ Replays possíveis (offset por consumer group)
-
-⚠️ Exige idempotência no SC (chave: `lancamento_id + operation`)
+✅ Desacoplamento temporal (SL não depende de SC online)
+✅ Reprocessamento automático ao SC voltar
+✅ Atende RNF-CRIT-02 (≤5% perda) via DLQ
+⚠️ Exige idempotência no SC (chave: lancamento_id + operation)
