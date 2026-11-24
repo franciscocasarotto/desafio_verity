@@ -1,10 +1,7 @@
-# 💰 Estimativa de Custos e FinOps — Desafio Verity
+#  Estimativa de Custos e FinOps — Desafio Verity
 
-> **Contexto:** Análise financeira e técnica para o projeto **Desafio Verity** (Controle de Fluxo de Caixa), considerando ambiente híbrido corporativo (On-premises VMware/Azure Stack HCI + Multi-Cloud Azure + GCP) e conformidade com LGPD.
 
----
-
-## 📋 Índice
+##  Índice
 
 1. [Visão Executiva](#1-visão-executiva)
 2. [Premissas do Cenário](#2-premissas-do-cenário)
@@ -36,7 +33,7 @@
 | **TCO 3 anos (com FinOps)** | R$ 20.772,00 | R$ 18.036,00 | **R$ 15.408,00** |
 | **Economia vs. Pay-as-you-go** | 30% | 40% | **49%** |
 
-> 🎯 **Conclusão:** A arquitetura híbrida (On-prem + Azure + GCP) com estratégias FinOps ativas oferece o melhor equilíbrio entre **custo, performance, conformidade LGPD e resiliência operacional**.
+>  **Conclusão:** A arquitetura híbrida (On-prem + Azure + GCP) com estratégias FinOps ativas oferece o melhor equilíbrio entre **custo, performance, conformidade LGPD e resiliência operacional**.
 
 ---
 
@@ -170,7 +167,7 @@
 | **Tempo de boot container** | ~3s | ~2s | ~1s |
 | **Atende 50 req/s?** | ✅ Sim | ✅ Sim | ✅ Sim (folga) |
 
-> ✅ **Todos os provedores atendem o RNF-CRIT-02** (50 req/s com ≤5% perda). Nossa meta é **0% perda** via Redis Streams com consumer groups.
+>  **Todos os provedores atendem o RNF-CRIT-02** (50 req/s com ≤5% perda). Nossa meta é **0% perda** via Redis Streams com consumer groups.
 
 ---
 
@@ -186,7 +183,7 @@
 | **Audit trail** | Azure Policy | Cloud Audit Logs | SIEM local |
 | **DPO support** | ✅ | ✅ | ✅ |
 
-> 🔐 **Recomendação:** Dados sensíveis (PII de comerciantes) permanecem **on-premises** (PostgreSQL). Apenas dados anonimizados de transações vão para a nuvem.
+>  **Recomendação:** Dados sensíveis (PII de comerciantes) permanecem **on-premises** (PostgreSQL). Apenas dados anonimizados de transações vão para a nuvem.
 
 ---
 
@@ -220,7 +217,7 @@
 | **Link dedicado** | ExpressRoute | Cloud Interconnect | R$ 2.000-5.000 |
 | **SD-WAN** | Azure Virtual WAN | Network Connectivity | R$ 500-1.500 |
 
-> 💡 **Para o Desafio Verity:** VPN Site-to-Site é suficiente (baixo volume de dados, alta criticidade).
+>  **Para o Desafio Verity:** VPN Site-to-Site é suficiente (baixo volume de dados, alta criticidade).
 
 ### 11.2. Integração com ITSM (ServiceNow)
 
@@ -231,7 +228,7 @@
 | Deploy em produção | Cria Change Request | REST API (grátis) |
 | Vulnerabilidade detectada | Abre Incidente de Segurança | Integration Hub |
 
-> 🔗 **MID Server** do ServiceNow pode rodar on-premises, conectando a nuvem Azure/GCP ao ITSM corporativo sem expor a rede interna.
+> **MID Server** do ServiceNow pode rodar on-premises, conectando a nuvem Azure/GCP ao ITSM corporativo sem expor a rede interna.
 
 ---
 
@@ -245,7 +242,7 @@
 | **Multi-cloud nativo** | Azure Arc | Anthos | **Terraform + K8s** |
 | **Risco de migração** | 3-6 meses | 3-6 meses | **1-2 meses** |
 
-> 🎯 **Estratégia anti-lock-in:** Usar **Kubernetes + Terraform + PostgreSQL** como camadas de abstração. Trocar de provedor = mudar 2-3 arquivos `.tf`.
+>  **Estratégia anti-lock-in:** Usar **Kubernetes + Terraform + PostgreSQL** como camadas de abstração. Trocar de provedor = mudar 2-3 arquivos `.tf`.
 
 ---
 
@@ -261,7 +258,7 @@
 | **Portabilidade** | 10% | 3 | 3 | **5** |
 | **PONTUAÇÃO FINAL** | 100% | **4.15** | **3.60** | **4.90** |
 
-> 🏆 **Vencedor: Arquitetura Híbrida** com 4.90/5.00 — melhor custo-benefício, performance e conformidade.
+>  **Vencedor: Arquitetura Híbrida** com 4.90/5.00 — melhor custo-benefício, performance e conformidade.
 
 ---
 
@@ -446,7 +443,7 @@
 | **Portabilidade** | ⭐⭐⭐ | ⭐⭐⭐ | **⭐⭐⭐⭐⭐** |
 | **Recomendação** | Bom | Bom | **🏆 MELHOR** |
 
-> ✅ **Decisão final:** Arquitetura Híbrida (On-premises + Azure + GCP) com estratégias FinOps ativas, entregando **49% de economia** vs. cloud puro, com máxima conformidade LGPD e resiliência operacional.
+>  **Decisão final:** Arquitetura Híbrida (On-premises + Azure + GCP) com estratégias FinOps ativas, entregando **49% de economia** vs. cloud puro, com máxima conformidade LGPD e resiliência operacional.
 
 ---
 
