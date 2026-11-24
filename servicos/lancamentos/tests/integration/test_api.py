@@ -22,5 +22,5 @@ def test_criar_lancamento_valor_negativo():
 
 
 def test_health():
-    r = client.get("/lancamentos/health")
+    r = client.get("/health")
     assert r.status_code == 200
