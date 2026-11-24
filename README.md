@@ -7,30 +7,30 @@
   <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
   <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
-  <img src="https://img.shields.io/badge/Requisitos-100%_Atendidos-6366f1?style=for-the-badge" alt="Requisitos">
+  <img src="https://img.shields.io/badge/Requisitos-_Atendidos-6366f1?style=for-the-badge" alt="Requisitos">
   <img src="https://img.shields.io/badge/Diagramas-10_Gráficos-8b5cf6?style=for-the-badge" alt="Diagramas">
 </p>
 
 ---
 
-## 🌐 Painel de Controle Interativo
+##  Painel de Controle Interativo
 
 📊 **[Acesse o painel visual completo](docs/index.html)** com todos os requisitos, arquitetura, serviços e documentação navegável.
 
 ---
 
-## 🎯 Entrega de Valor
+##  Entrega de Valor
 
 O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financeiros e **saldo consolidado diário** com latência inferior a 150ms, permitindo decisões rápidas sobre liquidez.
 
-### 🔥 RNF Crítico Atendido
+###  RNF Crítico Atendido
 > *"O serviço de controle de lançamento não deve ficar indisponível se o sistema de consolidado diário cair."*
 
 ✅ **Atendido com excelência:** A arquitetura é **assíncrona e desacoplada** via Redis Streams. O serviço de `lancamentos` grava e retorna `201 Created` **sem esperar** o `consolidado`. Se o consolidado cair, os lançamentos continuam operando 100%. Quando voltar, reprocessa automaticamente. **0% de perda de dados** (meta do desafio: ≤5%).
 
 ---
 
-## 🏗️ Destaques da Arquitetura
+##  Destaques da Arquitetura
 
 | Dimensão | Decisão | Justificativa |
 |----------|---------|---------------|
@@ -41,7 +41,7 @@ O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financ
 | **Containerização** | Docker + Compose | Portabilidade entre ambientes híbridos |
 | **Validação** | Pydantic v2 | Tipagem forte no domínio |
 
-### 🌐 Contexto Híbrido (On-premises + Multi-Cloud)
+###  Contexto Híbrido (On-premises + Multi-Cloud)
 
 | Ambiente | Uso | Tecnologia |
 |----------|-----|------------|
@@ -51,7 +51,7 @@ O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financ
 | **Conectividade** | Rede privada federada | ExpressRoute + Cloud Interconnect |
 
 ---
-## 🌐 URLs e Endpoints da Aplicação
+##  URLs e Endpoints da Aplicação
 
 ### APIs Interativas (Swagger UI)
 
@@ -92,14 +92,14 @@ O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financ
 | 🔐 Segurança para Integração | [seguranca-integracao.md](docs/diferenciais/seguranca-integracao.md) |
 | 📊 Todos os Diagramas Consolidados | [diagramas.md](docs/diagramas.md) |
 
-### 📦 Repositório
+###  Repositório
 
 - **GitHub:** [github.com/franciscocasarotto/desafio_verity](https://github.com/franciscocasarotto/desafio_verity)
 - **Painel Interativo (GitHub Pages):** [franciscocasarotto.github.io/desafio_verity/docs/index.html](https://franciscocasarotto.github.io/desafio_verity/docs/index.html) *(após ativar GitHub Pages)*
 
 
 
-## 📊 Documentação Visual Completa
+##  Documentação Visual Completa
 
 A documentação inclui **10 diagramas gráficos profissionais** renderizados via Mermaid (funcionam nativamente no GitHub):
 
