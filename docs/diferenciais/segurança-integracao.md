@@ -48,4 +48,4 @@ sequenceDiagram
         GW-->>C: Response
     else JWT Inválido
         GW-->>C: 401 Unauthorized
-    end
+    end  

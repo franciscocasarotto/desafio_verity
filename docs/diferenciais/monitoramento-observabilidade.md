@@ -58,4 +58,4 @@ graph TB
     style M1 fill:#10b981,color:#fff
     style L1 fill:#3b82f6,color:#fff
     style T1 fill:#8b5cf6,color:#fff
-    style S1 fill:#ef4444,color:#fff
+    style S1 fill:#ef4444,color:#fff  

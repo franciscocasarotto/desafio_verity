@@ -34,7 +34,7 @@ A migração será feita de forma incremental, roteando o tráfego gradualmente 
 
 ```markdown
 
----
+--- 
 
 ## 5. Diagrama de Fases da Migração (Strangler Fig)
 

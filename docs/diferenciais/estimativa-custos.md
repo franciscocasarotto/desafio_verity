@@ -51,4 +51,4 @@ graph LR
     A2 -.->|≈| G2
     
     style A1 fill:#06b6d4,color:#fff
-    style G1 fill:#4285f4,color:#fff
+    style G1 fill:#4285f4,color:#fff 
