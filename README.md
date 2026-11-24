@@ -13,7 +13,9 @@ sobre liquidez.
 - **Persistência**: PostgreSQL (ACID) + Redis (cache TTL 5min)
 - **Segurança**: JWT, rede interna isolada, rate limiting
 
-##  Requisitos Diferenciais (Arquitetura Sênior)
+- **Portabilidade Híbrida (Multi-Cloud/On-Prem):** A solução é agnóstica à infraestrutura, sendo executável via containers em ambientes on-premises (VMware, Azure Stack HCI) ou orquestrada em nuvem (Azure AKS, Google GKE), garantindo soberania de dados e elasticidade conforme a necessidade do negócio.
+
+##  Requisitos Diferenciais 
 
 Além da implementação funcional, este repositório entrega artefatos de nível corporativo para garantir a viabilidade, segurança e operação da solução em produção:
 
