@@ -32,26 +32,3 @@ A migração será feita de forma incremental, roteando o tráfego gradualmente 
 | Degradação de performance no Gateway | Média | Médio | Cache agressivo no Redis para rotas de leitura (GET). |
 
 
-```markdown
-
---- 
-
-## 5. Diagrama de Fases da Migração (Strangler Fig)
-
-```mermaid
-gantt
-    title Migração de Legado — Strangler Fig
-    dateFormat  YYYY-MM-DD
-    axisFormat  %S
-    
-    section Fase 1: API Gateway
-    API Gateway + Coexistência      :a1, 2026-01-01, 14d
-    
-    section Fase 2: Lançamentos
-    Migração de Lançamentos         :a2, after a1, 14d
-    
-    section Fase 3: Consolidado
-    Migração de Consolidado         :a3, after a2, 14d
-    
-    section Fase 4: Descomissionamento
-    Desligar Legado                 :a4, after a3, 7d
