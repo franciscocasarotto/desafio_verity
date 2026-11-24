@@ -9,22 +9,21 @@
 1. [Visão Executiva](#1-visão-executiva)
 2. [Premissas do Cenário](#2-premissas-do-cenário)
 3. [Comparativo de Provedores](#3-comparativo-de-provedores)
-4. [Mapa de Serviços Equivalentes](#4-mapa-de-serviços-equivalentes)
-5. [Estimativa Azure (Brasil)](#5-estimativa-azure-brasil)
-6. [Estimativa GCP (Brasil)](#6-estimativa-gcp-brasil)
-7. [Comparativo Direto](#7-comparativo-direto)
-8. [TCO — Total Cost of Ownership (3 anos)](#8-tco--total-cost-of-ownership-3-anos)
-9. [Performance por Provedor](#9-performance-por-provedor)
-10. [Segurança e Compliance LGPD](#10-segurança-e-compliance-lgpd)
-11. [DevOps e Kubernetes](#11-devops-e-kubernetes)
-12. [Integração On-Prem e ITSM](#12-integração-on-prem-e-itsm)
-13. [Lock-in e Portabilidade](#13-lock-in-e-portabilidade)
-14. [Matriz de Decisão Ponderada](#14-matriz-de-decisão-ponderada)
-15. [Recomendação Arquitetural](#15-recomendação-arquitetural)
-16. [Estratégias FinOps](#16-estratégias-finops)
-17. [Cenário On-Premises](#17-cenário-on-premises)
-18. [Roadmap Multi-Cloud](#18-roadmap-multi-cloud)
-19. [Referências](#19-referências)
+4. [Estimativa Azure (Brasil)](#5-estimativa-azure-brasil)
+5. [Estimativa GCP (Brasil)](#6-estimativa-gcp-brasil)
+6. [Comparativo Direto](#7-comparativo-direto)
+7. [TCO — Total Cost of Ownership (3 anos)](#8-tco--total-cost-of-ownership-3-anos)
+8. [Performance por Provedor](#9-performance-por-provedor)
+9. [Segurança e Compliance LGPD](#10-segurança-e-compliance-lgpd)
+10. [DevOps e Kubernetes](#11-devops-e-kubernetes)
+11. [Integração On-Prem e ITSM](#12-integração-on-prem-e-itsm)
+12. [Lock-in e Portabilidade](#13-lock-in-e-portabilidade)
+13. [Matriz de Decisão Ponderada](#14-matriz-de-decisão-ponderada)
+14. [Recomendação Arquitetural](#15-recomendação-arquitetural)
+15. [Estratégias FinOps](#16-estratégias-finops)
+16. [Cenário On-Premises](#17-cenário-on-premises)
+17. [Roadmap Multi-Cloud](#18-roadmap-multi-cloud)
+18. [Referências](#19-referências)
 
 ---
 
@@ -72,50 +71,8 @@
 
 ---
 
-## 4. Mapa de Serviços Equivalentes
 
-```mermaid
-graph TB
-    subgraph "Azure"
-        A1[Container Apps]
-        A2[AKS]
-        A3[PostgreSQL Flexible]
-        A4[Cache for Redis]
-        A5[API Management]
-        A6[Azure Monitor]
-        A7[Key Vault]
-        A8[Entra ID]
-    end
-    
-    subgraph "GCP"
-        G1[Cloud Run]
-        G2[GKE]
-        G3[Cloud SQL]
-        G4[Memorystore]
-        G5[API Gateway]
-        G6[Cloud Monitoring]
-        G7[Secret Manager]
-        G8[Cloud Identity]
-    end
-    
-    A1 <-->|equivalente| G1
-    A2 <-->|equivalente| G2
-    A3 <-->|equivalente| G3
-    A4 <-->|equivalente| G4
-    A5 <-->|equivalente| G5
-    A6 <-->|equivalente| G6
-    A7 <-->|equivalente| G7
-    A8 <-->|equivalente| G8
-    
-    style A1 fill:#06b6d4,color:#fff
-    style A2 fill:#06b6d4,color:#fff
-    style G1 fill:#4285f4,color:#fff
-    style G2 fill:#4285f4,color:#fff
-
-    
-
-
-## 5. Estimativa Azure (Brasil)
+## 4. Estimativa Azure (Brasil)
 
 > **Região:** Brazil South (São Paulo) | **Moeda:** BRL | **Modelo:** Pay-as-you-go
 
@@ -137,7 +94,7 @@ graph TB
 
 ---
 
-## 6. Estimativa GCP (Brasil)
+## 5. Estimativa GCP (Brasil)
 
 > **Região:** southamerica-east1 (São Paulo) | **Moeda:** BRL | **Modelo:** Pay-as-you-go
 
@@ -159,7 +116,7 @@ graph TB
 
 ---
 
-## 7. Comparativo Direto
+## 6. Comparativo Direto
 
 | Critério | Azure | GCP | Híbrido |
 |----------|-------|-----|---------|
@@ -171,9 +128,9 @@ graph TB
 
 ---
 
-## 8. TCO — Total Cost of Ownership (3 anos)
+## 7. TCO — Total Cost of Ownership (3 anos)
 
-### 8.1. TCO Azure (36 meses)
+### 7.1. TCO Azure (36 meses)
 
 | Item | Ano 1 | Ano 2 | Ano 3 | Total |
 |------|-------|-------|-------|-------|
@@ -181,7 +138,7 @@ graph TB
 | Com FinOps | R$ 6.924 | R$ 6.924 | R$ 6.924 | **R$ 20.772** |
 | Economia | R$ 2.976 | R$ 2.976 | R$ 2.976 | R$ 8.928 |
 
-### 8.2. TCO GCP (36 meses)
+### 7.2. TCO GCP (36 meses)
 
 | Item | Ano 1 | Ano 2 | Ano 3 | Total |
 |------|-------|-------|-------|-------|
@@ -189,7 +146,7 @@ graph TB
 | Com FinOps | R$ 6.012 | R$ 6.012 | R$ 6.012 | **R$ 18.036** |
 | Economia | R$ 4.008 | R$ 4.008 | R$ 4.008 | R$ 12.024 |
 
-### 8.3. TCO Híbrido (36 meses) — Recomendado
+### 7.3. TCO Híbrido (36 meses) — Recomendado
 
 | Item | Ano 1 | Ano 2 | Ano 3 | Total |
 |------|-------|-------|-------|-------|
@@ -202,7 +159,7 @@ graph TB
 
 ---
 
-## 9. Performance por Provedor
+## 8. Performance por Provedor
 
 | Métrica | Azure | GCP | On-Premises |
 |---------|-------|-----|-------------|
@@ -217,7 +174,7 @@ graph TB
 
 ---
 
-## 10. Segurança e Compliance LGPD
+## 9. Segurança e Compliance LGPD
 
 | Requisito | Azure | GCP | On-Premises |
 |-----------|-------|-----|-------------|
@@ -233,7 +190,7 @@ graph TB
 
 ---
 
-## 11. DevOps e Kubernetes
+## 10. DevOps e Kubernetes
 
 | Ferramenta | Azure | GCP | On-Premises |
 |------------|-------|-----|-------------|
@@ -253,9 +210,9 @@ graph TB
 
 ---
 
-## 12. Integração On-Prem e ITSM
+## 11. Integração On-Prem e ITSM
 
-### 12.1. Conectividade Híbrida
+### 11.1. Conectividade Híbrida
 
 | Solução | Azure | GCP | Custo Mensal |
 |---------|-------|-----|--------------|
@@ -265,7 +222,7 @@ graph TB
 
 > 💡 **Para o Desafio Verity:** VPN Site-to-Site é suficiente (baixo volume de dados, alta criticidade).
 
-### 12.2. Integração com ITSM (ServiceNow)
+### 11.2. Integração com ITSM (ServiceNow)
 
 | Evento | Ação no ServiceNow | Custo |
 |--------|-------------------|-------|
@@ -278,7 +235,7 @@ graph TB
 
 ---
 
-## 13. Lock-in e Portabilidade
+## 12. Lock-in e Portabilidade
 
 | Aspecto | Azure | GCP | Híbrido |
 |---------|-------|-----|---------|
@@ -292,7 +249,7 @@ graph TB
 
 ---
 
-## 14. Matriz de Decisão Ponderada
+## 13. Matriz de Decisão Ponderada
 
 | Critério | Peso | Azure (1-5) | GCP (1-5) | Híbrido (1-5) |
 |----------|------|-------------|-----------|---------------|
@@ -308,7 +265,7 @@ graph TB
 
 ---
 
-## 15. Recomendação Arquitetural
+## 14. Recomendação Arquitetural
 
 ### ✅ Arquitetura Recomendada: Híbrida Multi-Cloud
 
@@ -350,9 +307,9 @@ graph TB
 
 ---
 
-## 16. Estratégias FinOps
+## 15. Estratégias FinOps
 
-### 16.1. Imediatas (Mês 1-3)
+### 15.1. Imediatas (Mês 1-3)
 
 | Estratégia | Economia Estimada | Esforço |
 |------------|-------------------|---------|
@@ -361,7 +318,7 @@ graph TB
 | **Desligar ambientes dev à noite** | 30-40% (dev) | Baixo |
 | **Reserved Instances (1 ano)** | 35-40% (DB) | Baixo |
 
-### 16.2. Médio Prazo (Mês 3-12)
+### 15.2. Médio Prazo (Mês 3-12)
 
 | Estratégia | Economia Estimada | Esforço |
 |------------|-------------------|---------|
@@ -370,7 +327,7 @@ graph TB
 | **Committed Use Discounts** (GCP) | 37% (Cloud SQL) | Baixo |
 | **Savings Plans** (Azure) | 30-50% (compute) | Baixo |
 
-### 16.3. Longo Prazo (Ano 2-3)
+### 15.3. Longo Prazo (Ano 2-3)
 
 | Estratégia | Economia Estimada | Esforço |
 |------------|-------------------|---------|
@@ -380,9 +337,9 @@ graph TB
 
 ---
 
-## 17. Cenário On-Premises
+## 16. Cenário On-Premises
 
-### 17.1. Infraestrutura Existente (Aproveitamento)
+### 16.1. Infraestrutura Existente (Aproveitamento)
 
 | Recurso | Especificação | Custo Marginal |
 |---------|---------------|----------------|
@@ -392,7 +349,7 @@ graph TB
 | **Energia + Refrigeração** | Datacenter corporativo | ~R$ 200/mês (alocado) |
 | **FTE SRE/DevOps** | 0.2 FTE dedicado | ~R$ 4.000/mês (alocado) |
 
-### 17.2. Quando On-Premises é Melhor?
+### 16.2. Quando On-Premises é Melhor?
 
 ✅ **Use on-premises quando:**
 - Dados sensíveis (LGPD, PCI-DSS, saúde)
@@ -409,7 +366,7 @@ graph TB
 
 ---
 
-## 18. Roadmap Multi-Cloud
+## 17. Roadmap Multi-Cloud
 
 ### Marcos Principais
 
@@ -432,22 +389,22 @@ graph TB
 
 ---
 
-## 19. Referências
+## 18. Referências
 
-### 19.1. Calculadoras Oficiais
+### 18.1. Calculadoras Oficiais
 - [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/)
 - [GCP Pricing Calculator](https://cloud.google.com/products/calculator)
 
-### 19.2. Frameworks FinOps
+### 18.2. Frameworks FinOps
 - [FinOps Foundation](https://www.finops.org/)
 - [Well-Architected Framework (Azure)](https://learn.microsoft.com/azure/well-architected/)
 - [Well-Architected Framework (GCP)](https://cloud.google.com/architecture/framework)
 
-### 19.3. Compliance
+### 18.3. Compliance
 - [LGPD (Lei 13.709/2018)](http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
 - [ISO 27001/27018](https://www.iso.org/isoiec-27001-information-security.html)
 
-### 19.4. Benchmarks de Performance
+### 18.4. Benchmarks de Performance
 - [Cloud Performance Benchmark](https://www.cloudharmony.com/)
 - [Gartner Magic Quadrant Cloud IaaS](https://www.gartner.com/)
 
