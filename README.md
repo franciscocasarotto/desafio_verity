@@ -83,7 +83,8 @@ O comerciante obtém **visibilidade em tempo real** dos seus lançamentos financ
 | Documento | Link |
 |-----------|------|
 | 🗺️ Mapeamento de Domínios (DDD) | [dominio-funcional.md](docs/business/dominio-funcional.md) |
-| 📋 Requisitos Funcionais e Não-Funcionais | [requisitos.md](docs/requirements/requisitos.md) |
+| 📋 Requisitos Funcionais  | [requisitos.md](docs/requirements/requisitos-funcionais.md) |
+| 📋 Requisitos Não-Funcionais | [requisitos.md](docs/requirements/requisitos-nao-funcionais.md) |
 | 🏛️ Arquitetura Alvo + Diagramas C4 | [arquitetura-alvo.md](docs/architecture/arquitetura-alvo.md) |
 | ⚖️ Decisões Arquiteturais (ADRs) | [adr/](docs/adr/) |
 | 🔄 Arquitetura de Transição (Strangler Fig) | [arquitetura-transicao.md](docs/diferenciais/arquitetura-transicao.md) |
