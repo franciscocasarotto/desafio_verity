@@ -15,58 +15,24 @@ graph TB
             L[Lançamento]
             C[Categoria]
             CT[Conta]
-            L -->|pertence a| C
-            L -->|vinculado a| CT
+            L --> C
+            L --> CT
         end
-        
         subgraph "BC: Consolidado"
             CD[ConsolidadoDiario]
             S[Saldo]
-            CD -->|calcula| S
+            CD --> S
         end
     end
-    
     subgraph "Domínios de Suporte"
-        IA[Identidade & Acesso]
+        IA[Identidade e Acesso]
         N[Notificação]
         A[Auditoria]
     end
-    
-    L -->|evento| CD
-    IA -->|autentica| L
-    L -->|registra| A
-    CD -->|alerta| N
-    
-    style L fill:#10b981,color:#fff
-    style CD fill:#3b82f6,color:#fff
-    style S fill:#3b82f6,color:#fff
-
-graph LR
-    subgraph "Capacidades de Negócio"
-        C1[C1. Capturar Lançamentos]
-        C2[C2. Classificar por Categoria]
-        C3[C3. Consultar Saldo Diário]
-        C4[C4. Exportar Relatório]
-        C5[C5. Corrigir com Auditoria]
-    end
-    
-    subgraph "Serviços"
-        SL[Serviço Lançamentos]
-        SC[Serviço Consolidado]
-    end
-    
-    C1 --> SL
-    C2 --> SL
-    C5 --> SL
-    C3 --> SC
-    C4 --> SC
-    
-    style C1 fill:#10b981,color:#fff
-    style C2 fill:#10b981,color:#fff
-    style C5 fill:#10b981,color:#fff
-    style C3 fill:#3b82f6,color:#fff
-    style C4 fill:#3b82f6,color:#fff
-
+    L --> CD
+    IA --> L
+    L --> A
+    CD --> N
 graph TB
     subgraph "Usuários"
         COM[Comerciante<br/>Web/Mobile App]
