@@ -1,44 +1,49 @@
-# Requisitos Não-Funcionais (RNF)
+## Requisitos Não-Funcionais (RNF)
 
-## Desempenho
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF01 | Latência p95 de criação de lançamento | ≤ 200ms |
-| RNF02 | Latência p95 de consulta de consolidado | ≤ 150ms (cache Redis) |
-| RNF03 | Throughput mínimo | 100 req/s por serviço |
+### Criticidade (do enunciado do desafio)
+| ID | Requisito | Meta | Como atendemos |
+|----|-----------|------|----------------|
+| RNF-CRIT-01 | Lançamentos NÃO pode ficar indisponível se consolidado cair | 100% uptime SL | Arquitetura assíncrona via Redis — lançamentos grava e retorna 201 sem esperar consolidado |
+| RNF-CRIT-02 | Pico de 50 req/s no consolidado com máx. 5% perda | ≤ 5% perda | Redis Streams com consumer groups (at-least-once delivery) + DLQ |
 
-## Escalabilidade
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF04 | Escalonamento horizontal sem downtime | 1→N réplicas |
-| RNF05 | Cache de consolidado com TTL de 5min | Hit ratio ≥ 80% |
+### Desempenho
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF03 | Latência p95 criação lançamento | ≤ 200ms |
+| RNF04 | Latência p95 consulta consolidado | ≤ 150ms (cache Redis) |
+| RNF05 | Throughput mínimo | 100 req/s por serviço |
 
-## Disponibilidade & Resiliência
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF06 | SLA de disponibilidade | 99.5% mensal |
-| RNF07 | Recovery Point Objective (RPO) | ≤ 5 min |
-| RNF08 | Recovery Time Objective (RTO) | ≤ 15 min |
-| RNF09 | Circuit breaker para comunicação entre serviços | Timeout 3s, retry exponencial |
+### Escalabilidade
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF06 | Escalonamento horizontal sem downtime | 1→N réplicas via HPA |
+| RNF07 | Cache consolidado TTL 5min | Hit ratio ≥ 80% |
 
-## Segurança
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF10 | Autenticação JWT com expiração de 15min | OWASP Top 10 |
-| RNF11 | Comunicação interna via rede isolada (Docker internal) | Zero trust |
-| RNF12 | Dados em repouso criptografados (PostgreSQL) | AES-256 |
-| RNF13 | Rate limiting por IP | 60 req/min |
-| RNF14 | Logs estruturados sem dados sensíveis (PII) | LGPD |
+### Disponibilidade & Resiliência
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF08 | SLA disponibilidade | 99.5% mensal |
+| RNF09 | RPO | ≤ 5 min |
+| RNF10 | RTO | ≤ 15 min |
+| RNF11 | Circuit breaker entre serviços | Timeout 3s, retry exponencial |
 
-## Observabilidade
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF15 | Healthcheck em todos os serviços | `/health` e `/ready` |
-| RNF16 | Métricas Prometheus expostas | `/metrics` |
-| RNF17 | Trace distribuído (OpenTelemetry) | Correlation ID por request |
+### Segurança
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF12 | JWT com expiração 15min | OWASP Top 10 |
+| RNF13 | Rede interna isolada (Docker) | Zero Trust |
+| RNF14 | Criptografia repouso AES-256 | LGPD |
+| RNF15 | Rate limiting 60 req/min | Anti-abuso |
 
-## Manutenibilidade
-| ID    | Requisito | Meta |
-|-------|-----------|------|
-| RNF18 | Cobertura de testes ≥ 85% | pytest --cov |
-| RNF19 | Documentação ADR para cada decisão | 100% decisões críticas |
+### Observabilidade
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF16 | Healthcheck /health e /ready | 100% serviços |
+| RNF17 | Métricas Prometheus | /metrics exposto |
+| RNF18 | Trace distribuído OpenTelemetry | correlation_id |
+
+### Manutenibilidade
+| ID | Requisito | Meta |
+|----|-----------|------|
+| RNF19 | Cobertura testes ≥ 85% | pytest --cov |
+| RNF20 | ADR para cada decisão crítica | 100% |
