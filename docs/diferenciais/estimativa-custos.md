@@ -270,30 +270,55 @@
 ### ✅ Arquitetura Recomendada: Híbrida Multi-Cloud
 
 ┌─────────────────────────────────────────────────────────┐
+
 │ ON-PREMISES (VMware / Azure Stack HCI) │
+
 │ ┌─────────────────────────────────────────────────┐ │
+
 │ │ PostgreSQL (dados sensíveis, LGPD) │ │
+
 │ │ Redis (cache local, baixa latência) │ │
+
 │ │ HashiCorp Vault (secrets) │ │
+
 │ └─────────────────────────────────────────────────┘ │
+
 └─────────────────────────────────────────────────────────┘
+
 ↕ VPN Site-to-Site (ExpressRoute)
+
 ┌─────────────────────────────────────────────────────────┐
+
 │ AZURE (Brazil South) │
+
 │ ┌─────────────────────────────────────────────────┐ │
+
 │ │ API Gateway (rate limiting, JWT) │ │
+
 │ │ Serviço Lançamentos (Container Apps/AKS) │ │
+
 │ │ Azure Monitor (observabilidade) │ │
+
 │ └─────────────────────────────────────────────────┘ │
+
 └─────────────────────────────────────────────────────────┘
+
 ↕ Cloud Interconnect
+
 ┌─────────────────────────────────────────────────────────┐
+
 │ GCP (southamerica-east1) │
+
 │ ┌─────────────────────────────────────────────────┐ │
+
 │ │ Serviço Consolidado (Cloud Run/GKE) │ │
+
 │ │ Batch de madrugada (preemptible VMs) │ │
+
 │ │ Cloud Monitoring │ │
+
 │ └─────────────────────────────────────────────────┘ │
+
 └─────────────────────────────────────────────────────────┘
 
 ### Por que essa arquitetura?
