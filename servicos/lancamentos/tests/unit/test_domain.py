@@ -1,8 +1,6 @@
 import pytest
 from datetime import date, timedelta
 from decimal import Decimal
-from uuid import uuid4
-
 from src.domain.models import (
     Lancamento, TipoLancamento, ValorInvalidoError, DataFuturaError, LancamentoError
 )
@@ -34,14 +32,14 @@ class TestLancamento:
                 categoria="X", data=date.today() + timedelta(days=1), descricao="Y"
             )
 
-    def test_debito_deve_ter_valor_assinado_negativo(self):
+    def test_debito_valor_assinado_negativo(self):
         lanc = Lancamento(
             tipo=TipoLancamento.DEBITO, valor=Decimal("50"),
             categoria="Fornecedor", data=date.today(), descricao="Compra"
         )
         assert lanc.valor_assinado == Decimal("-50")
 
-    def test_deve_rejeitar_descricao_vazia(self):
+    def test_descricao_vazia_deve_falhar(self):
         with pytest.raises(LancamentoError):
             Lancamento(
                 tipo=TipoLancamento.CREDITO, valor=Decimal("10"),
