@@ -1,54 +1,113 @@
-# Estimativa de Custos e FinOps
+# 💰 Estimativa de Custos e FinOps — Desafio Verity
 
-## Premissas
-- **Cenário:** Pequeno/Médio comerciante com pico de 100 transações/segundo.
-- **Modelo Híbrido:** A arquitetura suporta tanto Cloud (Azure/AWS) quanto On-Premise (via Azure Stack HCI / VMware, perfil da organização).
+> **Contexto:** Análise financeira e técnica para o projeto **Desafio Verity** (Controle de Fluxo de Caixa), considerando ambiente híbrido corporativo (On-premises VMware/Azure Stack HCI + Multi-Cloud) e conformidade com LGPD.
 
-## Estimativa Cloud (Azure - Região East US)
-| Recurso | Especificação | Custo Mensal Estimado (USD) |
-|---------|---------------|-----------------------------|
-| **Compute** | Azure Container Apps (2 instâncias, 0.5 vCPU, 1GB RAM) | $ 45,00 |
-| **Database** | Azure Database for PostgreSQL - Flexible Server (Burstable B1ms) | $ 35,00 |
-| **Cache** | Azure Cache for Redis (Basic C0) | $ 16,00 |
-| **Networking** | API Management (Consumption Tier) + Load Balancer | $ 25,00 |
-| **Observability** | Azure Monitor + Log Analytics (5GB ingestão/dia) | $ 40,00 |
-| **Storage** | Blob Storage (Backups e logs) | $ 5,00 |
-| **Total Cloud** | | **~ $ 166,00 / mês** |
 
-## Estimativa On-Premise / Híbrido (Azure Stack HCI)
-- **Compute/Storage:** Custo marginal zero (aproveitamento de hardware existente).
-- **Licenças:** Windows Server / SQL Server (se aplicável) já amortizados.
-- **Custo Operacional:** Energia, refrigeração e 0.2 FTE de SRE/DevOps para manutenção.
-- **Vantagem:** Soberania de dados e latência próxima de zero para lojas físicas.
+---
 
-## Otimização FinOps
-- **Auto-scaling:** Configurar HPA (Horizontal Pod Autoscaler) para escalar para 0 durante a madrugada (fechamento de caixa), reduzindo custos de compute em ~30%.
-- **Reserved Instances:** Para ambientes de produção estáveis, comprar RIs de 1 ano para o PostgreSQL reduz o custo em ~40%.
+## 📋 Índice
 
-## 5. Gráfico Comparativo de Custos (Azure vs. GCP)
+1. [Visão Executiva](#1-visão-executiva)
+2. [Premissas do Cenário](#2-premissas-do-cenário)
+3. [Comparativo de Provedores](#3-comparativo-de-provedores)
+4. [Mapa de Serviços Equivalentes](#4-mapa-de-serviços-equivalentes)
+5. [Estimativa Azure (Brasil)](#5-estimativa-azure-brasil)
+6. [Estimativa GCP (Brasil)](#6-estimativa-gcp-brasil)
+7. [Comparativo Direto e Gráficos](#7-comparativo-direto-e-gráficos)
+8. [TCO — Total Cost of Ownership (3 anos)](#8-tco--total-cost-of-ownership-3-anos)
+9. [Performance por Provedor](#9-performance-por-provedor)
+10. [Segurança e Compliance LGPD](#10-segurança-e-compliance-lgpd)
+11. [DevOps e Kubernetes](#11-devops-e-kubernetes)
+12. [Integração On-Prem e ITSM](#12-integração-on-prem-e-itsm)
+13. [Lock-in e Portabilidade](#13-lock-in-e-portabilidade)
+14. [Matriz de Decisão Ponderada](#14-matriz-de-decisão-ponderada)
+15. [Recomendação Arquitetural](#15-recomendação-arquitetural)
+16. [Estratégias FinOps](#16-estratégias-finops)
+17. [Cenário On-Premises](#17-cenário-on-premises)
+18. [Roadmap Multi-Cloud](#18-roadmap-multi-cloud)
+19. [Referências](#19-referências)
+
+---
+
+## 1. Visão Executiva
+
+| Métrica | Azure | GCP | Híbrido (Recomendado) |
+|---------|-------|-----|----------------------|
+| **Custo Mensal (Pay-as-you-go)** | R$ 835,00 | R$ 837,00 | R$ 612,00 |
+| **Custo Mensal (com FinOps)** | R$ 584,00 | R$ 502,00 | R$ 428,00 |
+| **TCO 3 anos (com FinOps)** | R$ 21.024,00 | R$ 18.072,00 | **R$ 15.408,00** |
+| **Economia vs. Pay-as-you-go** | 30% | 40% | **49%** |
+
+> 🎯 **Conclusão:** A arquitetura híbrida (On-prem + Azure + GCP) com estratégias FinOps ativas oferece o melhor equilíbrio entre **custo, performance, conformidade LGPD e resiliência operacional**.
+
+---
+
+## 2. Premissas do Cenário
+
+| Parâmetro | Valor | Justificativa |
+|-----------|-------|---------------|
+| **Carga de trabalho** | Pico de 100 transações/segundo | Comportamento típico de varejo em horário comercial |
+| **Região** | São Paulo, Brasil | Conformidade LGPD + latência baixa para PDVs |
+| **Moeda** | BRL (R$) | Faturamento local, sem exposição cambial |
+| **Modelo de cobrança** | Pay-as-you-go (base) + FinOps (otimizado) | Flexibilidade inicial, otimização progressiva |
+| **Ambiente** | Híbrido (On-prem + Azure + GCP) | Perfil corporativo da organização |
+| **SLA alvo** | 99.5% mensal | Alinhado com RNF08 do projeto |
+| **Horizonte de análise** | 36 meses (3 anos) | Ciclo típico de decisão de arquitetura |
+
+---
+
+## 3. Comparativo de Provedores
+
+| Dimensão | Microsoft Azure | Google Cloud Platform |
+|----------|-----------------|----------------------|
+| **Posição de mercado** | #2 mundial (foco enterprise) | #3 mundial (foco data/AI) |
+| **Região Brasil** | Brazil South (São Paulo) | southamerica-east1 (São Paulo) |
+| **Zonas de disponibilidade** | 3 AZs | 3 zonas |
+| **SLA padrão** | 99.9% - 99.99% | 99.9% - 99.95% |
+| **Integração on-prem** | Azure Arc + Stack HCI (nativa) | Anthos + Distributed Cloud |
+| **Identidade** | Microsoft Entra ID (Azure AD) | Google Cloud Identity |
+| **Foco estratégico** | Enterprise, Híbrido, SAP, M365 | Data, AI/ML, Kubernetes, Open Source |
+| **Suporte em português** | ✅ Nativo | ✅ Nativo |
+| **Parceiros no Brasil** | Ampla rede (Accenture, Avanade, etc.) | Rede menor (Cloud Solutions, etc.) |
+
+---
+
+## 4. Mapa de Serviços Equivalentes
 
 ```mermaid
-graph LR
-    subgraph "💰 Azure — R$ 825/mês"
-        A1[Compute: R$ 180]
-        A2[Database: R$ 280]
-        A3[Cache: R$ 95]
-        A4[Networking: R$ 150]
-        A5[Observability: R$ 100]
-        A6[Storage: R$ 20]
+graph TB
+    subgraph "Azure"
+        A1[Container Apps]
+        A2[AKS]
+        A3[PostgreSQL Flexible]
+        A4[Cache for Redis]
+        A5[API Management]
+        A6[Azure Monitor]
+        A7[Key Vault]
+        A8[Entra ID]
     end
     
-    subgraph "💰 GCP — R$ 835/mês"
-        G1[Compute: R$ 120]
-        G2[Database: R$ 350]
-        G3[Cache: R$ 150]
-        G4[Networking: R$ 120]
-        G5[Observability: R$ 80]
-        G6[Storage: R$ 15]
+    subgraph "GCP"
+        G1[Cloud Run]
+        G2[GKE]
+        G3[Cloud SQL]
+        G4[Memorystore]
+        G5[API Gateway]
+        G6[Cloud Monitoring]
+        G7[Secret Manager]
+        G8[Cloud Identity]
     end
     
-    A1 -.->|≈| G1
-    A2 -.->|≈| G2
+    A1 <-->|equivalente| G1
+    A2 <-->|equivalente| G2
+    A3 <-->|equivalente| G3
+    A4 <-->|equivalente| G4
+    A5 <-->|equivalente| G5
+    A6 <-->|equivalente| G6
+    A7 <-->|equivalente| G7
+    A8 <-->|equivalente| G8
     
     style A1 fill:#06b6d4,color:#fff
-    style G1 fill:#4285f4,color:#fff 
+    style A2 fill:#06b6d4,color:#fff
+    style G1 fill:#4285f4,color:#fff
+    style G2 fill:#4285f4,color:#fff
