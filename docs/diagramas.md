@@ -72,3 +72,36 @@ graph LR
     style C5 fill:#10b981,color:#fff
     style C3 fill:#3b82f6,color:#fff
     style C4 fill:#3b82f6,color:#fff
+
+
+---
+
+## 1. Domínio DDD (Bounded Contexts)
+
+```mermaid
+
+graph LR
+    subgraph "Capacidades de Negócio"
+        C1[C1. Capturar Lançamentos]
+        C2[C2. Classificar por Categoria]
+        C3[C3. Consultar Saldo Diário]
+        C4[C4. Exportar Relatório]
+        C5[C5. Corrigir com Auditoria]
+    end
+    
+    subgraph "Serviços"
+        SL[Serviço Lançamentos]
+        SC[Serviço Consolidado]
+    end
+    
+    C1 --> SL
+    C2 --> SL
+    C5 --> SL
+    C3 --> SC
+    C4 --> SC
+    
+    style C1 fill:#10b981,color:#fff
+    style C2 fill:#10b981,color:#fff
+    style C5 fill:#10b981,color:#fff
+    style C3 fill:#3b82f6,color:#fff
+    style C4 fill:#3b82f6,color:#fff
