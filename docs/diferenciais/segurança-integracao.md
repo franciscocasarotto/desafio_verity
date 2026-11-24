@@ -26,7 +26,26 @@ A exposição das APIs (internas e externas) segue o modelo **Zero Trust** e as 
 - **Gestão de Secrets:** Nenhuma credencial é hardcoded. Uso de Azure Key Vault ou HashiCorp Vault para injeção de secrets em runtime.
 - **Supply Chain:** Assinatura de imagens Docker (Cosign/Notary) para garantir que apenas imagens verificadas rodem em produção.
 
-## 5. Segurança em Ambiente Híbrido (Zero Trust)
-- **Conectividade Segura:** Tráfego entre on-premises (VMware/Azure Stack HCI) e nuvem (Azure/GCP) trafega exclusivamente por túneis criptografados dedicados (ExpressRoute / Cloud Interconnect), nunca pela internet pública.
-- **Service Mesh (Opcional/Futuro):** Implementação de Istio ou Linkerd para garantir criptografia mTLS (mutual TLS) entre os microsserviços, independentemente de estarem rodando no datacenter local ou na nuvem.
-- **Gestão Centralizada de Secrets:** Utilização de um cofre de segredos unificado (ex: HashiCorp Vault ou Azure Key Vault com replicação) para que os containers na nuvem e on-premises acessem as mesmas credenciais de forma segura e auditável.
+## 6. Diagrama de Fluxo de Autenticação (OAuth2/JWT)
+
+```mermaid
+sequenceDiagram
+    participant C as 👤 Comerciante
+    participant IDP as 🔐 Azure Entra ID
+    participant GW as 🔒 API Gateway
+    participant SL as 📝 Lançamentos
+    
+    C->>IDP: Login (usuário + senha)
+    IDP-->>C: JWT Token (15min)
+    
+    C->>GW: POST /lancamentos + JWT
+    GW->>GW: Valida JWT (assinatura + exp)
+    GW->>GW: Rate Limit check
+    
+    alt JWT Válido
+        GW->>SL: Roteia requisição
+        SL-->>GW: 201 Created
+        GW-->>C: Response
+    else JWT Inválido
+        GW-->>C: 401 Unauthorized
+    end

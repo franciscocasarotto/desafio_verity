@@ -286,4 +286,170 @@
                 <div class="requirement-item">
                     <div class="check-icon">✓</div>
                     <div class="requirement-text">
+<<<<<<< HEAD
                        
+=======
+                        <div class="requirement-title">RNF Crítico Atendido</div>
+                        <div class="requirement-desc">Lançamentos 100% disponível mesmo com consolidado offline</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Performance Otimizada</div>
+                        <div class="requirement-desc">50 req/s com &lt;5% perda (meta: 0% perda)</div>
+                    </div>
+                </div>
+
+                <div class="requirement-item">
+                    <div class="check-icon">✓</div>
+                    <div class="requirement-text">
+                        <div class="requirement-title">Evoluções Futuras</div>
+                        <div class="requirement-desc">Roadmap: OpenTelemetry, Service Mesh, CI/CD DevSecOps</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🚀 Serviços em Execução</h2>
+                <p style="color: #94a3b8; margin-bottom: 15px;">Status em tempo real via Docker Compose</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="name">PostgreSQL</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">Porta 5432</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Redis</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">Porta 6379</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Lançamentos API</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">localhost:8001</div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="name">Consolidado API</div>
+                        <div class="status">🟢 Healthy</div>
+                        <div style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">localhost:8002</div>
+                    </div>
+                </div>
+
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Serviços Ativos</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Uptime SLA</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">&lt;150ms</div>
+                        <div class="metric-label">Latência p95</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0%</div>
+                        <div class="metric-label">Perda de Dados</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🛠️ Stack Tecnológica</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Backend</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Python 3.11 + FastAPI</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Database</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">PostgreSQL 15</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Cache/Mensageria</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Redis 7 Streams</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Containerização</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Docker + Compose</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Validação</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">Pydantic v2</span>
+                    </div>
+                    <div style="padding: 10px; background: rgba(51, 65, 85, 0.5); border-radius: 6px;">
+                        <strong>Testes</strong><br>
+                        <span style="color: #94a3b8; font-size: 0.9em;">pytest + httpx</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>📚 Documentação Completa</h2>
+                <p style="color: #94a3b8; margin-bottom: 20px;">Todos os artefatos arquiteturais disponíveis no repositório</p>
+                
+                <div class="links">
+                    <a href="business/dominio-funcional.md" class="link-card">
+                        <h3>🗺️ Domínios Funcionais</h3>
+                        <p>Mapeamento DDD com bounded contexts e capacidades de negócio</p>
+                    </a>
+
+                    <a href="requirements/requisitos.md" class="link-card">
+                        <h3>📋 Requisitos RF/RNF</h3>
+                        <p>Requisitos funcionais e não-funcionais refinados com metas claras</p>
+                    </a>
+
+                    <a href="architecture/arquitetura-alvo.md" class="link-card">
+                        <h3>🏛️ Arquitetura Alvo</h3>
+                        <p>Diagrama C4, padrões arquiteturais e justificativas técnicas</p>
+                    </a>
+
+                    <a href="adr/" class="link-card">
+                        <h3>⚖️ ADRs</h3>
+                        <p>4 Architecture Decision Records com trade-offs documentados</p>
+                    </a>
+
+                    <a href="diferenciais/arquitetura-transicao.md" class="link-card">
+                        <h3>🔄 Migração de Legado</h3>
+                        <p>Estratégia Strangler Fig para transição incremental</p>
+                    </a>
+
+                    <a href="diferenciais/estimativa-custos.md" class="link-card">
+                        <h3>💰 FinOps</h3>
+                        <p>Estimativa Azure vs. GCP em BRL com otimizações de custo</p>
+                    </a>
+
+                    <a href="diferenciais/monitoramento-observabilidade.md" class="link-card">
+                        <h3>📊 Observabilidade</h3>
+                        <p>3 pilares: Métricas, Logs e Traces distribuídos</p>
+                    </a>
+
+                    <a href="diferenciais/seguranca-integracao.md" class="link-card">
+                        <h3>🔐 Segurança</h3>
+                        <p>Zero Trust, OAuth2, JWT, OWASP API Security Top 10</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Desenvolvido por <span class="author">Francisco Casarotto</span></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Arquiteto de Soluções | DEVSECOPS | ITSM | FinOps | Multi-cloud</p>
+            <p style="margin-top: 15px; color: #64748b;">
+                <a href="https://github.com/franciscocasarotto/desafio_verity" style="color: #60a5fa; text-decoration: none;">
+                    📦 Repositório GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+>>>>>>> 5ba9903 (feat: add interactive control panel dashboard showing all requirements)
