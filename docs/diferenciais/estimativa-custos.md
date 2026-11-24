@@ -1,4 +1,4 @@
-# 💰 Estimativa de Custos e FinOps — Desafio Verity
+#  Estimativa de Custos e FinOps
 
 > **Contexto:** Análise financeira e técnica para o projeto **Desafio Verity** (Controle de Fluxo de Caixa), considerando ambiente híbrido corporativo (On-premises VMware/Azure Stack HCI + Multi-Cloud) e conformidade com LGPD.
 
