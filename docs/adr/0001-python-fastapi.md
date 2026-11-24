@@ -1,29 +1,21 @@
 
-# ADR-0001: Python 3.11 + FastAPI
-
 ## Status: Aceito
-
 ## Contexto
-Precisamos de uma stack que permita modelar domínio com rigor, ter alta produtividade 
-de testes e ser familiar ao time.
+Stack precisa modelar domínio financeiro com rigor, alta produtividade de testes e familiaridade do time.
 
 ## Decisão
-Adotar Python 3.11 com FastAPI.
+Python 3.11 + FastAPI + Pydantic v2.
 
-## Justificativa Técnica
-| Critério | FastAPI | Alternativas |
-|----------|---------|--------------|
-| Performance (async) | ~40k req/s | Flask ~10k |
-| Validação de domínio | Pydantic v2 nativo | Manual |
-| OpenAPI auto-gerado | Sim | Não |
-| Curva de aprendizado | Baixa | — |
-| Ecossistema de testes | pytest maduro | — |
+## Justificativa
+| Critério | FastAPI | Flask | Django |
+|----------|---------|-------|--------|
+| Performance async | ~40k req/s | ~10k | ~15k |
+| Validação domínio | Pydantic nativo | Manual | DRF |
+| OpenAPI auto | Sim | Não | Não |
+| Curva aprendizado | Baixa | Baixa | Média |
 
 ## Consequências
-✅ Tipagem forte no domínio via Pydantic
-
-✅ Documentação Swagger automática
-
-✅ Async I/O nativo para alta concorrência
-
-⚠️ GIL do Python limita CPU-bound (mitigado com workers)
+✅ Tipagem forte no domínio
+✅ Swagger auto-gerado (demonstra API pronta para consumo)
+✅ Async nativo para alta concorrência
+⚠️ GIL limita CPU-bound (mitigado com workers)
